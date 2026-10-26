@@ -66,6 +66,15 @@ function HomePage() {
             </div>
           </ScrollReveal>
 
+          <ScrollReveal className="portfolio-about-image" delay={80}>
+            <div className="portfolio-about-image-frame">
+              <img
+                src="/graduation.png"
+                alt="Eusebiu Tamas at his Computer Science graduation"
+              />
+            </div>
+          </ScrollReveal>
+
         </div>
       </section>
 
@@ -78,18 +87,6 @@ function HomePage() {
         </header>
 
         <div className="portfolio-about-layout">
-          <ScrollReveal className="portfolio-about-image" delay={80}>
-            <div className="portfolio-about-image-frame">
-              <img
-                src="/graduation.jpg"
-                alt="Eusebiu Tamas at his Computer Science graduation"
-              />
-              <span className="portfolio-about-image-badge">
-                BSc Computer Science
-              </span>
-            </div>
-          </ScrollReveal>
-
           <div className="portfolio-about-content">
             <ScrollReveal as="div" className="portfolio-about-card" delay={160}>
               <p className="portfolio-about-lead">

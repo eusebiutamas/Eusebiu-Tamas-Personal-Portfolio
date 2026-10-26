@@ -314,18 +314,20 @@ html {
 .portfolio-home {
   min-height: calc(100vh - 72px);
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Changed from center to flex-start to move content up */
+  padding-top: 120px; /* Pushes content down slightly so it clears the nav */
   width: 100%;
+  position: relative;
 }
 
 .portfolio-home-content {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
-  align-items: center;
+  align-items: start; /* Aligns the text and card to the top of the grid */
   gap: 72px;
   width: min(calc(100% - 48px), 1180px);
   margin: 0 auto;
-  padding: 96px 0;
+  position: static; /* Removed relative so the image anchors to the .portfolio-home section */
 }
 
 .portfolio-home-main { min-width: 0; }
@@ -1476,7 +1478,7 @@ html {
 }
 
 /* =========================================================
-   ABOUT
+   ABOUT & HOME IMAGE
 ========================================================= */
 
 .portfolio-about-page .portfolio-page-header {
@@ -1496,38 +1498,29 @@ html {
   gap: 24px;
 }
 
+/* MOBILE IMAGE POSITIONING */
 .portfolio-about-image {
-  width: min(100%, 520px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
+  transform: translateY(40px); 
+  margin-bottom: -40px; 
+  z-index: 10; 
 }
 
-.portfolio-about-image-frame { position: relative; }
+.portfolio-about-image-frame { 
+  position: relative;
+  padding: 28px 0px 0px;
+  overflow: hidden;
+}
 
 .portfolio-about-image img {
   display: block;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border: 1px solid var(--portfolio-border);
-  border-radius: 20px;
-  box-shadow: 5px 6px 6px var(--portfolio-shadow);
-}
-
-.portfolio-about-image-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 12px;
-  border: 1px solid var(--portfolio-border);
-  border-radius: 999px;
-  background: var(--portfolio-surface-solid);
-  color: var(--portfolio-text);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  width: auto;
+  height: auto;
+  border: none;
+  box-shadow: none;
 }
 
 .portfolio-about-content {
@@ -1642,7 +1635,6 @@ html {
 @media (max-width: 700px) {
   .portfolio-about-page .portfolio-page-header { margin-bottom: 24px; }
   .portfolio-about-layout { gap: 20px; }
-  .portfolio-about-image { width: min(100%, 420px); }
   .portfolio-about-card p { padding: 22px; }
   .portfolio-about-prompt { padding: 22px 58px 22px 24px; }
 }
@@ -1654,6 +1646,7 @@ html {
   .portfolio-about-prompt-arrow { right: 20px; }
 }
 
+/* DESKTOP IMAGE POSITIONING */
 @media (min-width: 701px) {
   .portfolio-about-layout {
     flex-direction: row;
@@ -1661,13 +1654,25 @@ html {
     max-width: 1180px;
     gap: 32px;
   }
-  .portfolio-about-image {
-    flex: 0 0 36%;
-    width: 36%;
-    max-width: 420px;
-    margin: 0;
-  }
+  
   .portfolio-about-content { flex: 1; min-width: 0; }
+  
+  .portfolio-about-image {
+    position: absolute; 
+    bottom: -1px; /* Pins it exactly on the bottom line border */
+    right: max(24px, calc((100vw - 1180px) / 2)); /* Aligns it perfectly with the right edge of your 1180px container */
+    width: 50%; 
+    max-width: 550px;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    transform: none; /* Resets the mobile translate */
+    z-index: 10;
+  }
+
+  .portfolio-about-image img {
+    max-width: 100%;
+  }
 }
 
 /* =========================================================
@@ -3129,7 +3134,7 @@ html {
   .portfolio-home-content {
     grid-template-columns: 1fr;
     gap: 44px;
-    padding: 72px 0;
+    padding: 40px 0;
   }
 
   .portfolio-home h1 { font-size: clamp(2.2rem, 9vw, 3.2rem); }
