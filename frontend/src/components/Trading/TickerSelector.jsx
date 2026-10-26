@@ -1,11 +1,10 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 
 const TickerSelector = ({ tickers, selectedTicker, onSelect, loading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const wrapperRef = useRef(null);
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
@@ -20,7 +19,6 @@ const TickerSelector = ({ tickers, selectedTicker, onSelect, loading }) => {
   const filtered = useMemo(() => {
     if (!Array.isArray(tickers)) return [];
 
-    // If nothing typed, show a sensible subset (first 50 alphabetically)
     if (!search) return tickers.slice(0, 50);
 
     const q = search.toUpperCase();

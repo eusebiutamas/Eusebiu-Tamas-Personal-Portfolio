@@ -7,7 +7,9 @@ import ContactForm from '../components/portfolio/ContactForm';
 function HomePage() {
   return (
     <main>
-      {/* ── Hero ─────────────────────────────────────────── */}
+      {/* =================================================
+              HERO
+          ================================================== */}
       <section id="home" className="portfolio-home">
         <div className="portfolio-home-content">
 
@@ -67,7 +69,9 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ── About ────────────────────────────────────────── */}
+      {/* =================================================
+              ABOUT
+          ================================================== */}
       <section id="about" className="portfolio-page portfolio-about-page">
         <header className="portfolio-page-header">
           <ScrollReveal as="h1">About</ScrollReveal>
@@ -123,7 +127,9 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ── Projects ─────────────────────────────────────── */}
+      {/* =================================================
+              PROJECTS
+          ================================================== */}
       <section id="projects" className="portfolio-page">
         <header className="portfolio-page-header">
           <ScrollReveal as="h1">Projects</ScrollReveal>
@@ -177,7 +183,9 @@ function HomePage() {
 
       <CVSection />
 
-      {/* ── Contact ──────────────────────────────────────── */}
+      {/* =================================================
+              CONTACT
+          ================================================== */}
       <section id="contact" className="portfolio-page portfolio-contact-page">
         <header className="portfolio-page-header">
           <ScrollReveal as="h1">Contact</ScrollReveal>

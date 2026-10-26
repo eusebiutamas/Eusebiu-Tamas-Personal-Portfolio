@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PricePanel = ({ data }) => {
   if (!data || !data.data || data.data.length === 0) {
     return <div style={{ color: 'var(--text)' }}>No data available</div>;

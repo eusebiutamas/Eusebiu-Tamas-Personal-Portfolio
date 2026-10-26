@@ -35,7 +35,7 @@ function CVPage() {
           LinkedIn
         </a>
         <a
-          href="https://github.com/et1992s"
+          href="https://github.com/eusebiutamas"
           target="_blank"
           rel="noreferrer"
         >

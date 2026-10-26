@@ -1,4 +1,3 @@
-import React from 'react';
 import TubeRoutePanel from '../components/Tube/TubeRoutePanel';
 import '../App.css';
 

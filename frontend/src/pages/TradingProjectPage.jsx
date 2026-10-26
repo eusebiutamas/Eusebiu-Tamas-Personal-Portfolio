@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTradingData, useTickers } from '../hooks/useTradingData';
 import { useTradingPrediction } from '../hooks/useTradingPrediction';
 import { useLiveTradingChart } from '../hooks/useLiveTradingChart';

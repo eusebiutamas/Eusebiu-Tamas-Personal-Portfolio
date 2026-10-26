@@ -1,5 +1,3 @@
-import React from 'react';
-
 function formatMoney(value, currency = 'GBP') {
   const numeric = Number(value);
   if (!Number.isFinite(numeric)) return '—';

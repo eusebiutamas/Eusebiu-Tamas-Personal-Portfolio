@@ -1,6 +1,4 @@
-﻿import React from 'react';
-
-const TARGET_LABELS = {
+﻿const TARGET_LABELS = {
   forward_1min_return:   { label: '1-minute horizon',   hint: 'Next 1-minute return' },
   forward_5min_return:   { label: '5-minute horizon',   hint: 'Next 5-minute return' },
   forward_15min_return:  { label: '15-minute horizon',  hint: 'Next 15-minute return' },

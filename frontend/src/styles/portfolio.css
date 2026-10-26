@@ -3373,6 +3373,14 @@ html.lenis body {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
+  filter: blur(9.5px) contrast(5.1);
+  opacity: 0.5;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.portfolio-mouse-lightning--light {
+  filter: blur(8px) contrast(1.2);
+  opacity: 0.65;
 }
 
 @media (prefers-reduced-motion: reduce) {

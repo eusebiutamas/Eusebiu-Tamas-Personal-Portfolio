@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import usePortfolioTheme from '../../hooks/usePortfolioTheme';
 import ZebioAvatar from './ZebioAvatar';
 
@@ -55,9 +56,18 @@ function PortfolioNav({ onOpenChat }) {
   return (
     <header className={`portfolio-nav ${isMobileMenuOpen ? 'is-mobile-menu-open' : ''}`}>
       <div className="portfolio-nav-inner">
-        <a href="#home" className="portfolio-nav-brand" aria-label="Eusebiu Tamas — Home">
-          <img src="/portfolio-logo.png" alt="Eusebiu Tamas" className="portfolio-nav-logo" />
-        </a>
+        <Link
+          to="'#home"
+          className="portfolio-nav-brand"
+          aria-label="Eusebiu Tamas — Home"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <img
+            src="/portfolio-logo.png"
+            alt="Eusebiu Tamas"
+            className="portfolio-nav-logo"
+          />
+        </Link>
 
         <div className="portfolio-nav-controls">
           {isMobileMenuOpen && (
@@ -99,17 +109,65 @@ function PortfolioNav({ onOpenChat }) {
             ].filter(Boolean).join(' ')}
             aria-label="Main navigation"
           >
-            <a href="#about" className={activeSection === 'about' ? 'active' : undefined} onClick={() => setIsMobileMenuOpen(false)}>About</a>
-            <a href="#projects" className={activeSection === 'projects' ? 'active' : undefined} onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
-            <a href="#skills" className={activeSection === 'skills' ? 'active' : undefined} onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
-            <a href="#education" className={activeSection === 'education' ? 'active' : undefined} onClick={() => setIsMobileMenuOpen(false)}>Education</a>
-            <a href="#experience" className={activeSection === 'experience' ? 'active' : undefined} onClick={() => setIsMobileMenuOpen(false)}>Experience</a>
-            <a href="#contact" className={activeSection === 'contact' ? 'active' : undefined} onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+            <Link
+              to="/#about"
+              className={activeSection === 'about' ? 'active' : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+            </Link>
 
-            <a href="/Eusebiu_Tamas_Computer_Science_Graduate_CV.pdf" className="portfolio-nav-download" download onClick={() => setIsMobileMenuOpen(false)}>
+            <Link
+              to="/#projects"
+              className={activeSection === 'projects' ? 'active' : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Projects
+            </Link>
+
+            <Link
+              to="/#skills"
+              className={activeSection === 'skills' ? 'active' : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Skills
+            </Link>
+
+            <Link
+              to="/#education"
+              className={activeSection === 'education' ? 'active' : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Education
+            </Link>
+
+            <Link
+              to="/#experience"
+              className={activeSection === 'experience' ? 'active' : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Experience
+            </Link>
+
+            <Link
+              to="/#contact"
+              className={activeSection === 'contact' ? 'active' : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contact
+            </Link>
+
+            <a
+              href="/Eusebiu_Tamas_Computer_Science_Graduate_CV.pdf"
+              className="portfolio-nav-download"
+              download
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               <span>Download CV</span>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 17v3h14v-3" />
+                <path d="M12 3v12" />
+                <path d="m7 10 5 5 5-5" />
+                <path d="M5 17v3h14v-3" />
               </svg>
             </a>
           </nav>

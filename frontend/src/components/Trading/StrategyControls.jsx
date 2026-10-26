@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SLIDERS = [
   { key: 'buy_threshold',  label: 'Buy signal',  min: 0, max: 0.05, step: 0.001, pct: true },
   { key: 'sell_threshold', label: 'Sell signal', min: 0, max: 0.05, step: 0.001, pct: true },

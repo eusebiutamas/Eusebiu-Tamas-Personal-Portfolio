@@ -2,19 +2,17 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { tubeApi } from '../../services/api';
 import tubeSchematic from '../../data/tube-schematic.json';
 import svgStations from '../../data/svg-stations-extracted.json';
-// Adjust this path to wherever tfl-map.svg actually lives.
-// If it's in `public/`, just use "/tfl-map.svg".
 import tflMapUrl from '../../assets/tfl-map.svg';
 
-// viewBox shared by tfl-map.svg and tube-schematic.json
 const VIEWBOX = '-40.5 -120.5 2500 1320';
 
 const normalize = (name) =>
   String(name || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-/* ------------------------------------------------------------------ */
-/* Station index from svg-stations-extracted.json                     */
-/* ------------------------------------------------------------------ */
+/* ============================================================
+   Station index from svg-stations-extracted.json
+============================================================ */
+
 const STATION_INDEX = (() => {
   const map = new Map();
   for (const [id, data] of Object.entries(svgStations)) {
@@ -35,17 +33,16 @@ function findStation(rawName) {
   const key = normalize(rawName);
   if (!key) return null;
   if (STATION_INDEX.has(key)) return STATION_INDEX.get(key);
-  // Fallback: allow the suffixed variants used in the extracted file
-  // (e.g. "Barons_Court_district", "Canary_Wharf_elizabeth").
   for (const [k, v] of STATION_INDEX) {
     if (k.startsWith(key) && k.length - key.length <= 14) return v;
   }
   return null;
 }
 
-/* ------------------------------------------------------------------ */
-/* Small geometry helpers                                             */
-/* ------------------------------------------------------------------ */
+/* ============================================================
+   Small geometry helpers
+============================================================ */
+
 const dist = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
 
 function polylineLengths(points) {
@@ -110,10 +107,11 @@ function extractSegment(polyline, arcStart, arcEnd) {
   return pts;
 }
 
-/* ------------------------------------------------------------------ */
-/* Route geometry: for each consecutive pair, pick the schematic      */
-/* branch whose arc-distance between the two projections is smallest. */
-/* ------------------------------------------------------------------ */
+/* ==================================================================
+   Route geometry: for each consecutive pair, pick the schematic
+   branch whose arc-distance between the two projections is smallest.
+================================================================== */
+
 const MAX_MATCH_DISTANCE = 40; // pixels
 
 function buildRouteGeometry(routeStations) {
@@ -166,9 +164,10 @@ function buildRouteGeometry(routeStations) {
   return { segments, stationPoints };
 }
 
-/* ------------------------------------------------------------------ */
-/* Component                                                          */
-/* ------------------------------------------------------------------ */
+/* ==================================================================
+   Component
+================================================================== */
+
 const TubeRoutePanel = () => {
   const [stations, setStations] = useState([]);
   const [start, setStart] = useState('');

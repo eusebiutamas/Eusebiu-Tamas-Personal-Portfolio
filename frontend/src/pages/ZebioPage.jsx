@@ -1,4 +1,4 @@
-import React, {
+import {
   useEffect,
   useMemo,
   useRef,
@@ -25,8 +25,8 @@ function App() {
   const [taskState, setTaskState] = useState(null);
   const [taskError, setTaskError] = useState('');
 
-  const [backendOnline, setBackendOnline] = useState(null);
-  const [lastResponseTime, setLastResponseTime] = useState(null);
+  const [, setBackendOnline] = useState(null);
+  const [, setLastResponseTime] = useState(null);
 
   const [sessionId] = useState(() =>
     crypto.randomUUID
@@ -37,11 +37,6 @@ function App() {
   const chatEndRef = useRef(null);
   const textareaRef = useRef(null);
 
-  const modelName =
-    [...messages]
-      .reverse()
-      .find((message) => message.model)?.model ||
-    'qwen2.5-coder:14b';
 
   const latestAssistantMessage = useMemo(
     () =>
@@ -51,42 +46,12 @@ function App() {
     [messages]
   );
 
-  const taskStatus = taskState?.status ?? null;
-
-  const taskDisplayStatus =
-    taskState?.steps?.some(
-      (step) => step.approval_status === 'pending'
-    )
-      ? 'approval_required'
-      : taskStatus;
-
-  /*
-   * Whether the current engineering task is still running.
-   */
-  const taskIsActive =
-    taskStatus === 'pending' ||
-    taskStatus === 'running';
-
-  /*
-   * Whether the current engineering task has finished.
-   */
-  const taskIsTerminal =
-    taskStatus === 'completed' ||
-    taskStatus === 'failed' ||
-    taskStatus === 'cancelled';
-
-  /*
-   * Scroll chat to newest message.
-   */
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({
       behavior: 'smooth',
     });
   }, [messages, chatLoading]);
 
-  /*
-   * Check FastAPI backend periodically.
-   */
   useEffect(() => {
     const checkBackend = async () => {
       try {
@@ -112,13 +77,6 @@ function App() {
     };
   }, []);
 
-  /*
-   * Observe the active engineering task.
-   *
-   * The backend TaskManager is the source of truth.
-   * The frontend periodically requests a task snapshot
-   * until the task reaches a terminal state.
-   */
   useEffect(() => {
     if (!activeTaskId) {
       return;
@@ -254,7 +212,6 @@ function App() {
 
     source.onerror = (err) => {
       if (closed) return;
-      // EventSource reconnects automatically; log but don't tear down.
       console.warn('[ZEBIO SSE] connection error', err);
     };
 
@@ -264,9 +221,6 @@ function App() {
     };
   }, [activeTaskId]);
 
-  /*
-   * Ctrl/Cmd + K focuses the AI composer.
-   */
   useEffect(() => {
     const handleShortcut = (event) => {
       if (
@@ -291,9 +245,6 @@ function App() {
     };
   }, []);
 
-  /*
-   * Send a message to Zebio.
-   */
   async function sendMessage(messageOverride = null) {
     console.log(
       '[ZEBIO CHAT] sendMessage invoked',
@@ -317,9 +268,6 @@ function App() {
     setChatLoading(true);
     setChatError('');
 
-    /*
-     * Immediately display the user's message.
-     */
     setMessages((current) => [
       ...current,
       {
@@ -381,9 +329,6 @@ function App() {
       setBackendOnline(true);
 
       if (result.task_id) {
-        // Engineering task — the assistant reply will arrive via
-        // the SSE stream, not this response. Do NOT append a
-        // placeholder message.
         setActiveTaskId(result.task_id);
         setTaskState(null);
         setTaskError('');
@@ -394,7 +339,6 @@ function App() {
         return;
       }
 
-      // Simple conversation — reply came back inline.
       if (result.response) {
         setLastResponseTime(
           Math.round(performance.now() - startedAt)
@@ -430,25 +374,6 @@ function App() {
     }
   }
 
-  /*
-   * Convert internal task states into user-facing labels.
-   */
-  function getTaskStatusLabel(status) {
-    const labels = {
-      pending: 'Queued',
-      running: 'Executing',
-      approval_required: 'Approval required',
-      completed: 'Completed',
-      failed: 'Failed',
-      cancelled: 'Cancelled',
-    };
-
-    return labels[status] || status;
-  }
-
-  /*
-   * Approve a pending engineering task action.
-   */
   async function handleApprove(approvalId) {
     if (!approvalId) {
       return;
@@ -472,10 +397,6 @@ function App() {
         ]);
       }
 
-      /*
-       * The backend resumes the task immediately.
-       * Existing task polling picks up the new state.
-       */
     } catch (error) {
       setTaskError(
         error.response?.data?.detail ||
@@ -485,9 +406,6 @@ function App() {
     }
   }
 
-  /*
-   * Reject a pending engineering task action.
-   */
   async function handleReject(approvalId) {
     if (!approvalId) {
       return;
@@ -500,10 +418,6 @@ function App() {
         approvalId
       );
 
-      /*
-       * The backend cancels the task immediately.
-       * Existing task polling picks up the new state.
-       */
     } catch (error) {
       setTaskError(
         error.response?.data?.detail ||
@@ -513,10 +427,6 @@ function App() {
     }
   }
 
-  /*
-   * Enter = send
-   * Shift + Enter = newline
-   */
   function handleChatKeyDown(event) {
     if (
       event.key === 'Enter' &&
@@ -527,9 +437,6 @@ function App() {
     }
   }
 
-  /*
-   * Clear the conversation.
-   */
   function clearConversation() {
     setMessages([]);
     setChatError('');

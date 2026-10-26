@@ -1,66 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root {
-  --z-bg: #07090d;
-  --z-panel: rgba(14, 17, 24, 0.88);
-  --z-panel-solid: #0e1118;
-  --z-panel-soft: #11151e;
-
-  --z-border: rgba(255, 255, 255, 0.075);
-  --z-border-bright: rgba(255, 255, 255, 0.13);
-
-  --z-text: #e8ecf4;
-  --z-muted: #7f899b;
-  --z-dim: #515a6b;
-
-  --z-accent: #9cff57;
-  --z-accent-soft: rgba(156, 255, 87, 0.09);
-
-  --z-blue: #72a7ff;
-
-  --z-danger: #ff6f7c;
-
-  --z-shadow:
-    0 24px 80px rgba(0, 0, 0, 0.38);
-}
-
 /* =========================================================
-   Accept System Appearance
+   THEME MAPPING (Inherits from Portfolio)
 ========================================================= */
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --z-bg: #f4f6f8;
-    --z-panel: rgba(255, 255, 255, 0.88);
-    --z-panel-solid: #ffffff;
-    --z-panel-soft: #f8fafc;
+.portfolio-site {
+  --z-bg: var(--portfolio-background);
+  --z-panel: var(--portfolio-surface);
+  --z-panel-solid: var(--portfolio-surface-solid);
+  --z-panel-soft: var(--portfolio-surface-muted);
 
-    --z-border: rgba(15, 23, 42, 0.10);
-    --z-border-bright: rgba(15, 23, 42, 0.16);
+  --z-border: var(--portfolio-border);
+  --z-border-bright: var(--portfolio-border-strong);
 
-    --z-text: #18202b;
-    --z-muted: #657083;
-    --z-dim: #8a94a3;
+  --z-text: var(--portfolio-text);
+  --z-muted: var(--portfolio-text-secondary);
+  --z-dim: var(--portfolio-text-muted);
 
-    --z-accent: #4f9f24;
-    --z-accent-soft: rgba(79, 159, 36, 0.09);
+  --z-accent: var(--portfolio-accent);
+  --z-accent-soft: var(--portfolio-accent-soft);
 
-    --z-blue: #477dcc;
+  --z-blue: var(--portfolio-blue);
+  --z-danger: #ef4444; /* Keep the red for errors */
 
-    --z-danger: #d94b59;
-
-    --z-shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
-
-  
-  .panel {
-    background:
-      linear-gradient(
-        145deg,
-        rgba(255, 255, 255, 0.94),
-        rgba(248, 250, 252, 0.92)
-      );
-  }
-}
+  --z-shadow: 0 24px 80px rgba(0, 0, 0, 0.15);
 }
 
 /* =========================================================
@@ -81,18 +44,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
 
-  background:
-    radial-gradient(
-      circle at 12% 8%,
-      rgba(104, 155, 255, 0.07),
-      transparent 27rem
-    ),
-    radial-gradient(
-      circle at 90% 18%,
-      rgba(156, 255, 87, 0.045),
-      transparent 24rem
-    ),
-    var(--z-bg);
+  background: transparent;
 
   color: var(--z-text);
 
@@ -122,15 +74,12 @@ button {
 ========================================================= */
 
 .zebio-app {
-  position: relative;
-
   min-height: 100vh;
-
+  width: 100%;
   display: flex;
-
   flex-direction: column;
-  
-  overflow: hidden;
+  background-color: transparent; 
+  color: var(--z-text);
 }
 
 /* =========================================================
@@ -775,23 +724,21 @@ button {
 ========================================================= */
 
 .page-content {
-  width: min(1650px, calc(100% - 20px));
-  margin: 10px auto;
+  width: 100%;
+  padding: 100px 10px 10px 10px;
+  min-height: 10vh;
+  position: relative;
+  z-index: 10;
+  background-color: transparent;
 }
 
 .workspace {
   position: relative;
-
   z-index: 1;
-
-  width:
-    min(
-      1650px,
-      calc(100% - 20px)
-    );
-
+  width: min(1650px, calc(100% - 20px));
   margin: 0 auto;
-
+  padding-top: 100px;
+  background: transparent;
 }
 
 /* =========================================================
@@ -940,22 +887,12 @@ button {
 ========================================================= */
 
 .panel {
-  border:
-    1px solid
-    var(--z-border);
-
+  border: 1px solid var(--z-border);
   border-radius: 18px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(17, 21, 30, 0.94),
-      rgba(10, 13, 18, 0.92)
-    );
-
-  box-shadow:
-    var(--z-shadow);
-
+  background: var(--z-panel) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--z-shadow);
   overflow: hidden;
 }
 
@@ -1082,26 +1019,18 @@ button {
 
 .chat-area {
   min-height: 290px;
-
   max-height: 670px;
-
   overflow-y: auto;
+  background: transparent;
 }
 
 .empty-chat {
   min-height: 290px;
-
-  padding:
-    0px 25px;
-
+  padding: 0px 25px;
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   justify-content: center;
-
   text-align: center;
 }
 
@@ -1451,19 +1380,15 @@ button {
 
 .composer {
   margin: 20px 20px 20px 20px;
-
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
   column-gap: 8px;
-
   padding: 4px 10px 0 20px;
-
   border: 1px solid var(--z-border-bright);
   border-radius: 30px;
-
-  background: var(--z-panel);
-
+  background: var(--z-panel) !important;
+  backdrop-filter: blur(12px);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -1897,18 +1822,12 @@ button {
 ========================================================= */
 
 .market-header {
-  padding: 18px 20px 16px;
+  padding: 10px 8px 14px 10px;
   border: 1px solid var(--z-border);
   border-radius: 12px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(18, 24, 34, 0.96),
-      rgba(8, 12, 18, 0.96)
-    );
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  background: var(--z-panel) !important;
+  backdrop-filter: blur(18px);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
 
 .market-header-main {
@@ -2048,7 +1967,7 @@ button {
   gap: 5px;
   min-width: 0;
   padding: 10px 12px;
-  background: rgba(8, 12, 18, 0.72);
+  background: rgba(148, 163, 184, 0);
 }
 
 .market-metric span {
@@ -2062,9 +1981,9 @@ button {
 
 .market-metric strong {
   overflow: hidden;
-  color: var(--z-text);
+  color: rgb(0, 0, 0);
   font:
-    600 11px/1.2
+    800 9px/1.2
     "DM Mono",
     monospace;
   font-variant-numeric: tabular-nums;
@@ -2281,7 +2200,7 @@ button {
 }
 
 .prediction-negative {
-  color: #ffabb3;
+  color: #ef4545;
 
   text-shadow:
     0 0 18px
@@ -2338,9 +2257,9 @@ button {
   text-transform: none;
 }
 
-/* ---------------------------------------------------------
+/* =========================================================
    PREDICTION METADATA
---------------------------------------------------------- */
+========================================================= */
 
 .prediction-meta {
   display: grid;
@@ -2413,9 +2332,9 @@ button {
   text-overflow: ellipsis;
 }
 
-/* ---------------------------------------------------------
+/* =========================================================
    STATES
---------------------------------------------------------- */
+========================================================= */
 
 .prediction-loading {
   min-height: 120px;
@@ -2472,9 +2391,9 @@ button {
   font-size: 8px;
 }
 
-/* ---------------------------------------------------------
+/* =========================================================
    RESPONSIVE
---------------------------------------------------------- */
+========================================================= */
 
 @media (max-width: 700px) {
   .prediction-main {
@@ -3027,13 +2946,10 @@ button {
     letter-spacing: 0.14em;
   }
 
-  /* Subtitle adds noise on phones */
   .brand-subtitle {
     display: none;
   }
 
-  /* Nav drops to its own row and scrolls horizontally
-     if the viewport is narrower than the nav itself. */
   .topbar-nav {
     order: 3;
     flex-basis: 100%;
@@ -3046,15 +2962,11 @@ button {
     overflow-x: auto;
   }
 
-  /* Status pills stay top-right, next to the brand */
   .topbar-status {
     margin-left: auto;
     gap: 10px;
   }
 
-  /* Optional: hide the model pill to save space.
-     Keep it if you want it visible and don't mind
-     the row getting tight on 360px screens. */
   .topbar-status .model-pill {
     display: none;
   }
@@ -3077,7 +2989,7 @@ button {
 
 /* =========================================================
    LONDON UNDERGROUND — HEADER
-   ========================================================= */
+========================================================= */
 
 tube-route-header {
   display: flex;
@@ -3137,7 +3049,7 @@ tube-route-header {
 
 /* =========================================================
    ROUTE CONTROLS
-   ========================================================= */
+========================================================= */
 
 .tube-route-controls {
   display: grid;
@@ -3191,7 +3103,7 @@ tube-route-header {
 
 /* =========================================================
    FIND SHORTEST ROUTE
-   ========================================================= */
+========================================================= */
 
 .tube-route-button {
   position: relative;
@@ -3259,11 +3171,7 @@ tube-route-header {
 
 /* =========================================================
    LONDON UNDERGROUND MAP
-   ---------------------------------------------------------
-   The container is sized by the TfL map image; the overlay
-   <svg> sits on top with an identical viewBox so that route
-   polylines and station dots line up exactly with the map.
-   ========================================================= */
+========================================================= */
 
 .tube-schematic-container {
   position: relative;
@@ -3275,12 +3183,12 @@ tube-route-header {
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 42%,
-     rgb(44 147 187 / 46%),
-     transparent 55%),
+     rgba(44, 187, 51, 0.137),
+     transparent 25%),
      linear-gradient(176deg,
      rgb(255 255 255 / 10%),
-     rgb(1 59 131 / 17%)),
-     rgb(35 45 69 / 45%);
+     rgba(1, 131, 103, 0.062)),
+     rgba(35, 69, 49, 0.075);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.045),
     0 10px 30px rgba(0, 0, 0, 0.055);
@@ -3314,9 +3222,6 @@ tube-route-header {
   z-index: 0;
 }
 
-/* The TfL map image defines the container's height.
-   Everything else (overlay SVG) is positioned absolutely
-   on top of it. */
 .tube-map-image {
   display: block;
   width: 100%;
@@ -3328,10 +3233,9 @@ tube-route-header {
   z-index: 1;
 }
 
-/* Overlay SVG — same coordinate space as the map image. */
 .tube-schematic {
   position: absolute;
-  inset: 16px;                 /* match container padding */
+  inset: 16px;
   width: calc(100% - 32px);
   height: auto;
   z-index: 2;
@@ -3339,19 +3243,16 @@ tube-route-header {
   pointer-events: none;
 }
 
-/* Give the SVG its own aspect box matching the image so that
-   polylines land in the correct place even before the image
-   has finished loading. */
 .tube-schematic::before {
   content: "";
   display: block;
-  padding-top: 52.8%;          /* 1320 / 2500 ≈ 0.528 */
+  padding-top: 52.8%;
 }
 
 
 /* =========================================================
    ROUTE HIGHLIGHT
-   ========================================================= */
+========================================================= */
 
 .tube-route-highlight {
   stroke: #04f724;
@@ -3369,7 +3270,7 @@ tube-route-header {
 
 /* =========================================================
    ROUTE STATIONS
-   ========================================================= */
+========================================================= */
 
 .tube-route-node {
   opacity: 0;
@@ -3400,10 +3301,9 @@ tube-route-header {
     );
 }
 
-
 /* =========================================================
    CALCULATED ROUTE
-   ========================================================= */
+========================================================= */
 
 .tube-route-result {
   position: relative;
@@ -3481,10 +3381,9 @@ tube-route-header {
   text-transform: uppercase;
 }
 
-
 /* =========================================================
    ROUTE TELEMETRY
-   ========================================================= */
+========================================================= */
 
 .tube-route-stats {
   display: grid;
@@ -3531,7 +3430,7 @@ tube-route-header {
 
 /* =========================================================
    ROUTE SEQUENCE
-   ========================================================= */
+========================================================= */
 
 .tube-route-sequence {
   padding-top: 14px;
@@ -3610,10 +3509,9 @@ tube-route-header {
     forwards;
 }
 
-
 /* =========================================================
    ERROR
-   ========================================================= */
+========================================================= */
 
 .tube-route-error {
   margin-top: 10px;
@@ -3626,10 +3524,9 @@ tube-route-header {
   font-size: 9px;
 }
 
-
 /* =========================================================
    ROUTE ANIMATIONS
-   ========================================================= */
+========================================================= */
 
 @keyframes tube-route-flow {
   to {
@@ -3676,10 +3573,9 @@ tube-route-header {
   }
 }
 
-
 /* =========================================================
    ACCESSIBILITY
-   ========================================================= */
+========================================================= */
 
 
 @media (prefers-reduced-motion: reduce) {
@@ -3697,11 +3593,9 @@ tube-route-header {
   }
 }
 
-
-
 /* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 760px) {
   .tube-route-controls {
@@ -3750,7 +3644,7 @@ tube-route-header {
 
 /* ============================================================
    ZEBIO NEURAL CORE · RADIAL BURST
-   ============================================================ */
+============================================================ */
 
 .zebio-neural-core {
   --core-accent: #7aaec4;
@@ -3766,6 +3660,7 @@ tube-route-header {
   justify-content: flex-start;
   overflow: hidden;
   isolation: isolate;
+  background: transparent;
 }
 
 .zebio-neural-core-idle         { --core-accent: #7aaec4; --core-glow: rgba(122, 174, 196, 0.18); }
@@ -3776,7 +3671,9 @@ tube-route-header {
 .zebio-neural-core-failed       { --core-accent: #f09090; --core-glow: rgba(192, 64, 80, 0.28); }
 .zebio-neural-core-cancelled    { --core-accent: #708090; --core-glow: rgba(64, 72, 80, 0.28); }
 
-/* --- Thought line --------------------------------------------- */
+/* ============================================================
+   THOUGHT LINE
+============================================================ */
 
 .zebio-thought {
   position: relative;
@@ -3851,7 +3748,9 @@ tube-route-header {
   );
 }
 
-/* --- 3D stage ------------------------------------------------- */
+/* ============================================================
+   3D STAGE
+============================================================ */
 
 .zebio-neural-stage {
   position: relative;
@@ -3863,7 +3762,6 @@ tube-route-header {
   border-radius: 14px;
 }
 
-/* Deep blue backdrop glow behind the canvas */
 .zebio-neural-glow {
   position: absolute;
   inset: 0;
@@ -3923,7 +3821,9 @@ tube-route-header {
   }
 }
 
-/* --- Approval / error ---------------------------------------- */
+/* ============================================================
+   APPROVAL ERROR
+============================================================ */
 
 .zebio-neural-task {
   position: relative;
@@ -4012,7 +3912,9 @@ tube-route-header {
   background: rgba(255, 120, 120, 0.035);
 }
 
-/* --- Responsive ---------------------------------------------- */
+/* ============================================================
+   RESPONSIVE
+============================================================ */
 
 @media (max-width: 700px) {
   .zebio-neural-core {
@@ -4154,9 +4056,9 @@ tube-route-header {
   text-transform: uppercase;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    SIGNAL DATA
---------------------------------------------------------- */
+============================================================ */
 
 .strategy-overlay-grid {
   display: grid;
@@ -4253,9 +4155,9 @@ tube-route-header {
   color: #ef4444 !important;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    RISK / EXECUTION FOOTER
---------------------------------------------------------- */
+============================================================ */
 
 .strategy-overlay-footer {
   display: grid;
@@ -4317,9 +4219,9 @@ tube-route-header {
     tabular-nums;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    SIGNAL STATES
---------------------------------------------------------- */
+============================================================ */
 
 .strategy-overlay-idle {
   border-color:
@@ -4390,9 +4292,9 @@ tube-route-header {
   color: var(--z-text);
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    HEADER
---------------------------------------------------------- */
+============================================================ */
 
 .portfolio-ai-header {
   display: flex;
@@ -4472,26 +4374,26 @@ tube-route-header {
   letter-spacing: 0;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    NEURAL CORE
---------------------------------------------------------- */
+============================================================ */
 
 .portfolio-ai > .zebio-neural-core {
   margin: 4px 0 8px;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    MAIN BODY
---------------------------------------------------------- */
+============================================================ */
 
 .portfolio-ai-body {
   position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.025);
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    WELCOME
---------------------------------------------------------- */
+============================================================ */
 
 .ai-welcome {
   max-width: 980px;
@@ -4537,9 +4439,9 @@ tube-route-header {
   line-height: 1.7;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    QUICK PROMPTS
---------------------------------------------------------- */
+============================================================ */
 
 .ai-prompts {
   display: grid;
@@ -4601,9 +4503,9 @@ tube-route-header {
   cursor: default;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    MESSAGES
---------------------------------------------------------- */
+============================================================ */
 
 .ai-messages {
   max-width: 980px;
@@ -4790,9 +4692,9 @@ tube-route-header {
     monospace;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    THINKING
---------------------------------------------------------- */
+============================================================ */
 
 .ai-thinking {
   display: flex;
@@ -4846,9 +4748,9 @@ tube-route-header {
   }
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    ERROR
---------------------------------------------------------- */
+============================================================ */
 
 .ai-error {
   max-width: 980px;
@@ -5007,9 +4909,9 @@ tube-route-header {
   }
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    CLEAR CONVERSATION
---------------------------------------------------------- */
+============================================================ */
 
 .ai-clear {
   display: block;
@@ -5034,9 +4936,9 @@ tube-route-header {
   cursor: default;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    LATEST RESPONSE
---------------------------------------------------------- */
+============================================================ */
 
 .ai-latest {
   max-width: 980px;
@@ -5062,9 +4964,9 @@ tube-route-header {
   line-height: 1.6;
 }
 
-/* ---------------------------------------------------------
+/* ============================================================
    RESPONSIVE
---------------------------------------------------------- */
+============================================================ */
 
 @media (max-width: 720px) {
   .portfolio-ai {
@@ -5139,12 +5041,13 @@ tube-route-header {
 
 /* =========================================================
    TRADING LAB — INSTITUTIONAL TERMINAL
-   ========================================================= */
+========================================================= */
 
 .trading-terminal {
   width: min(100%, 1500px);
   margin: 0 auto;
-  padding: 12px 0 42px;
+  padding: 100px 50px 0px 50px;
+  background: transparent;
 }
 
 .trading-terminal-header {
@@ -5209,10 +5112,17 @@ tube-route-header {
 
 .market-section,
 .chart-section,
-.trading-intelligence-section,
 .strategy-section,
-.research-section {
-  margin-bottom: 14px;
+.research-section,
+.paper-section,
+.trading-intelligence-section,
+.insight-strip {
+  background: var(--z-panel) !important;
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--z-border) !important;
+  border-radius: 16px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .market-section > .market-header {
@@ -5239,7 +5149,7 @@ tube-route-header {
 
 .trading-terminal .market-controls select,
 .trading-terminal .bars-control select {
-  background: var(--z-panel-solid);
+  background: rgba(181, 199, 230, 0);
 }
 
 .section-heading {
@@ -5747,7 +5657,9 @@ tube-route-header {
 
 @media (max-width: 600px) {
   .trading-terminal {
-    padding-top: 6px;
+    padding-top: 0px;
+    padding: 0px;
+
   }
 
   .chart-section,
@@ -5793,7 +5705,7 @@ tube-route-header {
 
 /* =========================================================
    PAPER PORTFOLIO
-   ========================================================= */
+========================================================= */
 
 .paper-section {
   padding: 14px;
@@ -5899,7 +5811,7 @@ tube-route-header {
 .paper-portfolio-metrics > div {
   min-width: 0;
   padding: 11px 12px;
-  background: rgba(8, 12, 18, 0.72);
+  background: rgba(183, 196, 216, 0);
 }
 
 .paper-portfolio-metrics span {

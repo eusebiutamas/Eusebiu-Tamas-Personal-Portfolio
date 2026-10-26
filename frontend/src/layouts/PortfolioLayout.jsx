@@ -12,15 +12,11 @@ function PortfolioLayout() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const chatWindowRef = useRef(null);
 
-  // Close chat when clicking outside
   useEffect(() => {
     if (!isChatOpen) return;
 
     const handleClickOutside = (event) => {
-      // If click is outside the chat window, close it
       if (chatWindowRef.current && !chatWindowRef.current.contains(event.target)) {
-        // Exception: If the user clicks the Zebio avatar in the nav bar to close it,
-        // don't trigger the close here. Let the nav's onClick handler handle it.
         if (event.target.closest('.portfolio-zebio-menu')) {
           return;
         }
@@ -28,7 +24,6 @@ function PortfolioLayout() {
       }
     };
 
-    // Use 'mousedown' so it feels immediate and doesn't get blocked by focus events
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -37,25 +32,16 @@ function PortfolioLayout() {
 
   return (
     <div className="portfolio-site">
-      {/* Global ambience — once per site */}
       <SmoothScroll />
       <MouseLight />
-
-      {/*
-        We use a toggle here so clicking Zebio in the nav
-        opens the chat if closed, or closes it if open.
-      */}
       <PortfolioNav onOpenChat={() => setIsChatOpen((prev) => !prev)} />
-
       <Outlet />
-
       <div
         ref={chatWindowRef}
         className={[
           'portfolio-chat-window',
           isChatOpen ? 'portfolio-chat-window--open' : '',
         ].filter(Boolean).join(' ')}
-        /* FIX: Use inert instead of aria-hidden to prevent the browser focus error */
         inert={!isChatOpen}
       >
         <header className="portfolio-chat-window-header">

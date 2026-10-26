@@ -13,10 +13,9 @@ function MouseLight() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // ---------- Tunables ----------
-    const TRAIL_LIFETIME = 700; // ms — how long a segment survives
-    const MAX_POINTS     = 50;  // trail length ceiling
-    const MIN_DISTANCE   = 4;   // px — skip micro-movements
+    const TRAIL_LIFETIME = 700;
+    const MAX_POINTS     = 50;
+    const MIN_DISTANCE   = 4;
 
     // ---------- State ----------
     const points = [];
@@ -27,10 +26,12 @@ function MouseLight() {
     let isDark = false;
     let rafId  = 0;
 
-    // ---------- Theme detection ----------
     const site = document.querySelector('.portfolio-site');
     const updateTheme = () => {
       isDark = site?.getAttribute('data-theme') === 'dark';
+      if (canvas) {
+        canvas.classList.toggle('portfolio-mouse-lightning--light', !isDark);
+      }
     };
     updateTheme();
 
@@ -42,7 +43,6 @@ function MouseLight() {
       });
     }
 
-    // ---------- Resize / HiDPI ----------
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       const w = window.innerWidth;
@@ -56,7 +56,6 @@ function MouseLight() {
     resize();
     window.addEventListener('resize', resize);
 
-    // ---------- Mouse move → append a point ----------
     const onMove = (e) => {
       const now = performance.now();
       const x = e.clientX;
@@ -75,7 +74,6 @@ function MouseLight() {
       const dt = Math.max(now - prevTime, 1);
       const speed = dist / dt;
 
-      // Perpendicular jitter — the jaggedness that makes it read as lightning
       const angle    = Math.atan2(dy, dx);
       const perp     = angle + Math.PI / 2;
       const jitterM  = Math.min(dist * 0.35, 12);
@@ -95,7 +93,6 @@ function MouseLight() {
       prevTime = now;
     };
 
-    // ---------- Draw helpers ----------
     const drawSegmentPass = (baseRGB, alphaMul, widthMul, now) => {
       for (let i = 1; i < points.length; i++) {
         const p0 = points[i - 1];
@@ -116,13 +113,11 @@ function MouseLight() {
       }
     };
 
-    // ---------- Animation loop ----------
     const draw = () => {
       const now = performance.now();
 
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      // Expire old points
       while (points.length && now - points[0].time > TRAIL_LIFETIME) {
         points.shift();
       }
@@ -134,16 +129,11 @@ function MouseLight() {
         const accent = isDark ? '74, 222, 128' : '16, 185, 129';
         const cyan   = isDark ? '34, 211, 238' : '6, 182, 212';
 
-        // Additive glow only reads well on dark — source-over on light
         ctx.globalCompositeOperation = isDark ? 'lighter' : 'source-over';
 
-        // Pass 1 — wide soft halo
         drawSegmentPass(accent, 0.10, 8.0, now);
-        // Pass 2 — cyan body
         drawSegmentPass(cyan,   0.35, 2.5, now);
-        // Pass 3 — bright emerald core
         drawSegmentPass(accent, 0.85, 0.9, now);
-        // Pass 4 — white-hot center
         drawSegmentPass('255, 255, 255', 1.0, 0.35, now);
 
         ctx.globalCompositeOperation = 'source-over';
@@ -152,7 +142,6 @@ function MouseLight() {
       rafId = requestAnimationFrame(draw);
     };
 
-    // ---------- Wire up ----------
     window.addEventListener('mousemove', onMove, { passive: true });
     rafId = requestAnimationFrame(draw);
 
