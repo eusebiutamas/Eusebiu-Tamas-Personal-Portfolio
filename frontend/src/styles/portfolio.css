@@ -626,7 +626,10 @@ html {
 
 .portfolio-project-card {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px; /* Space between text and image */
   padding: 36px;
   border: 1px solid var(--portfolio-border);
   border-radius: 18px;
@@ -647,6 +650,11 @@ html {
     transform 180ms ease;
 }
 
+/* Flip the layout for the middle card */
+.portfolio-project-card--reverse {
+  flex-direction: row-reverse;
+}
+
 .portfolio-project-card::before {
   content: "";
   position: absolute;
@@ -656,12 +664,19 @@ html {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--portfolio-accent-soft), transparent);
   opacity: 0.9;
+  z-index: 2;
 }
 
 .portfolio-project-card:hover {
   border-color: var(--portfolio-border-strong);
   box-shadow: 5px 6px 6px var(--portfolio-shadow-hover);
   transform: scale(1.02) translateY(-2px);
+}
+
+/* Text Content Wrapper */
+.portfolio-project-content {
+  flex: 1;
+  min-width: 0; /* Prevents flex blowout on long words */
 }
 
 .portfolio-project-card h3 {
@@ -696,6 +711,69 @@ html {
   color: var(--portfolio-text-secondary);
   font-size: 0.78rem;
   font-weight: 500;
+}
+
+/* =========================================================
+   PROJECT IMAGES
+========================================================= */
+
+.portfolio-project-image-wrapper {
+  flex: 0 0 45%; /* Image takes up 45% of the card width */
+  max-width: 480px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--portfolio-border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.portfolio-project-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.portfolio-project-card:hover .portfolio-project-image {
+  transform: scale(1.04);
+}
+
+/* =========================================================
+   RESPONSIVE: Stack vertically on mobile
+========================================================= */
+@media (max-width: 850px) {
+  .portfolio-project-card, 
+  .portfolio-project-card--reverse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+    padding: 28px;
+  }
+  
+  .portfolio-project-card::before {
+    left: 28px;
+    right: 28px;
+  }
+
+  .portfolio-project-image-wrapper {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .portfolio-project-card, 
+  .portfolio-project-card--reverse {
+    padding: 24px;
+  }
+  
+  .portfolio-project-card::before {
+    left: 24px;
+    right: 24px;
+  }
 }
 
 /* =========================================================

@@ -124,7 +124,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* =================================================
+            {/* =================================================
               PROJECTS
           ================================================== */}
       <section id="projects" className="portfolio-page">
@@ -137,42 +137,60 @@ function HomePage() {
         </header>
 
         <section className="portfolio-project-list" aria-label="Projects">
+          {/* CARD 1: Zebio (Image on Right) */}
           <ScrollReveal as={Link} to="/projects/zebio" className="portfolio-project-card" delay={120}>
-            <h3>Zebio</h3>
-            <p>
-              A local AI software-engineering platform combining large language
-              models, autonomous engineering workflows, persistent memory and
-              developer tooling.
-            </p>
-            <div className="portfolio-project-card-meta">
-              <span>Python</span><span>FastAPI</span>
-              <span>React</span><span>Ollama</span>
+            <div className="portfolio-project-content">
+              <h3>Zebio</h3>
+              <p>
+                A local AI software-engineering platform combining large language
+                models, autonomous engineering workflows, persistent memory and
+                developer tooling.
+              </p>
+              <div className="portfolio-project-card-meta">
+                <span>Python</span><span>FastAPI</span>
+                <span>React</span><span>Ollama</span>
+              </div>
+            </div>
+            <div className="portfolio-project-image-wrapper">
+              <img src="/zebioproject.jpg" alt="Zebio Interface" className="portfolio-project-image" />
             </div>
           </ScrollReveal>
 
-          <ScrollReveal as={Link} to="/projects/trading" className="portfolio-project-card" delay={220}>
-            <h3>Trading Lab</h3>
-            <p>
-              A machine-learning system for intraday stock-return prediction and
-              trading-strategy research using technical indicators and deep
-              learning models.
-            </p>
-            <div className="portfolio-project-card-meta">
-              <span>Python</span><span>TensorFlow</span>
-              <span>Machine Learning</span><span>Financial Data</span>
+          {/* CARD 2: Trading Lab (Image on Left) */}
+          <ScrollReveal as={Link} to="/projects/trading" className="portfolio-project-card portfolio-project-card--reverse" delay={220}>
+            <div className="portfolio-project-content">
+              <h3>Trading Lab</h3>
+              <p>
+                A machine-learning system for intraday stock-return prediction and
+                trading-strategy research using technical indicators and deep
+                learning models.
+              </p>
+              <div className="portfolio-project-card-meta">
+                <span>Python</span><span>TensorFlow</span>
+                <span>Machine Learning</span><span>Financial Data</span>
+              </div>
+            </div>
+            <div className="portfolio-project-image-wrapper">
+              <img src="/tradingproject.jpg" alt="Trading Lab Chart" className="portfolio-project-image" />
             </div>
           </ScrollReveal>
 
+          {/* CARD 3: London Underground (Image on Right) */}
           <ScrollReveal as={Link} to="/projects/tube" className="portfolio-project-card" delay={320}>
-            <h3>London Underground Route Optimisation</h3>
-            <p>
-              An algorithmic route-planning application using graph algorithms
-              to calculate London Underground journeys and analyse network
-              changes.
-            </p>
-            <div className="portfolio-project-card-meta">
-              <span>Algorithms</span><span>Graph Theory</span>
-              <span>React</span><span>Transport Data</span>
+            <div className="portfolio-project-content">
+              <h3>London Underground Route Optimisation</h3>
+              <p>
+                An algorithmic route-planning application using graph algorithms
+                to calculate London Underground journeys and analyse network
+                changes.
+              </p>
+              <div className="portfolio-project-card-meta">
+                <span>Algorithms</span><span>Graph Theory</span>
+                <span>React</span><span>Transport Data</span>
+              </div>
+            </div>
+            <div className="portfolio-project-image-wrapper">
+              <img src="/londonundergroundproject.png" alt="London Underground Map" className="portfolio-project-image" />
             </div>
           </ScrollReveal>
         </section>
